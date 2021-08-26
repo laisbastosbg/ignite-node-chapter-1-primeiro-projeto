@@ -38,4 +38,12 @@ app.post("/accounts", (request, response) => {
   return response.status(201).send();
 })
 
+app.get("/statement/:cpf", (request, response) => {
+  const { cpf } = request.params;
+
+  const customer = customers.find(customer => customer.cpf === cpf);
+
+  return response.status(200).json(customer.statement)
+})
+
 app.listen(3333, () => console.log("Server listening on port 3333"));
