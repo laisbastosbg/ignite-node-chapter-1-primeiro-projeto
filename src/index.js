@@ -140,4 +140,19 @@ app.get("/account", verifyIfExistsAccountCPF, (request, response) => {
   return response.json(customer);
 });
 
+app.delete("/account", verifyIfExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+  const customerIndex = customers.indexOf(customer);
+  customers.splice(customerIndex, 1);
+  return response.status(200).json(customers);
+});
+
+app.get("/balance", verifyIfExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+
+  const balance = getBalance(customer.statement);
+  
+  return response.json(balance);
+})
+
 app.listen(3333, () => console.log("Server listening on port 3333"));
